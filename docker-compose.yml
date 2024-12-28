@@ -1,0 +1,7 @@
+services:
+  postgres:
+    build:
+      context: .
+      target: postgres
+    ports:
+      - "7800:5432"

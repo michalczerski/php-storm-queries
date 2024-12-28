@@ -1,0 +1,1 @@
+./vendor/bin/phpunit --display-phpunit-deprecations --display-warnings --bootstrap tests\postgres.php tests
