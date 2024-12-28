@@ -85,6 +85,11 @@ class Connection implements IConnection
         }
     }
 
+    public function getLastInsertedId(): string
+    {
+        return $this->pdo->lastInsertId();
+    }
+
     public function executeCommands($content): void
     {
         $started = new DateTime();

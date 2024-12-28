@@ -6,14 +6,19 @@ use data\ConnectionProvider;
 
 const CONNECTION_STRING = "pgsql:host=localhost;port=7800;dbname=postgres;user=postgres;password=postgres";
 
-$connection = ConnectionProvider::getConnection();
+try {
+    $connection = ConnectionProvider::getConnection();
+    $connection->execute("DROP SCHEMA IF EXISTS storm_test CASCADE");
+    $connection->execute("CREATE SCHEMA storm_test");
+    $connection->execute("SET search_path = storm_test");
 
-$connection->execute("DROP SCHEMA IF EXISTS storm_test CASCADE");
-$connection->execute("CREATE SCHEMA storm_test");
-$connection->execute("SET search_path = storm_test");
+    $schema = file_get_contents(__DIR__ . "/data/postgres.sql");
+    $data = file_get_contents(__DIR__ . "/data/data.sql");
 
-$schema = file_get_contents(__DIR__ . "/data/postgres.sql");
-$data = file_get_contents(__DIR__ . "/data/data.sql");
-
-$connection->executeCommands($schema);
-$connection->executeCommands($data);
+    $connection->executeCommands($schema);
+    $connection->executeCommands($data);
+}
+catch(Exception $e) {
+    echo ('Cannot connect to database. Run `docker compose up`.');
+    die;
+}

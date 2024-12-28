@@ -12,5 +12,7 @@ interface IConnection
 
     public function execute(string $query, array $parameters = []): bool;
 
+    public function getLastInsertedId(): string;
+
     public function executeCommands($content): void;
 }

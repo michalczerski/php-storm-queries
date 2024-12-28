@@ -120,7 +120,7 @@ class SelectQuery
     public function find(Map $map = null): array
     {
         $sql = $this->selectBuilder->toSql();
-        $parameters = $this->selectBuilder->getParameters();
+        $parameters = ParameterNormalizer::normalize($this->selectBuilder->getParameters());
         $results = $this->connection->query($sql, $parameters);
         if ($map !== null) {
             $results = Mapper::map($results, $map);
