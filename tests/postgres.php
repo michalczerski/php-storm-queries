@@ -4,7 +4,9 @@ require_once 'autoload.php';
 
 use data\ConnectionProvider;
 
-const CONNECTION_STRING = "pgsql:host=localhost;port=7800;dbname=postgres;user=postgres;password=postgres";
+const CONNECTION_USER = "postgres";
+const CONNECTION_PASS = "postgres";
+const CONNECTION_STRING = "pgsql:host=localhost;port=7800;dbname=postgres";
 
 try {
     $connection = ConnectionProvider::getConnection();

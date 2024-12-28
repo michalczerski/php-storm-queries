@@ -16,9 +16,9 @@ class Connection implements IConnection
         private PDO $pdo
     ) { }
 
-    public static function createFromString($connectionString): Connection
+    public static function createFromString($connectionString, $user, $pass): Connection
     {
-        return new Connection(new PDO($connectionString));
+        return new Connection(new PDO($connectionString, $user, $pass));
     }
 
     public function begin(): void

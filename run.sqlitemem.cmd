@@ -1,1 +1,0 @@
-./vendor/bin/phpunit --display-deprecations --display-warnings --bootstrap tests\sqlite.php tests

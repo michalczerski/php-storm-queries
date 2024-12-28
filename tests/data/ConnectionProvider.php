@@ -9,15 +9,10 @@ class ConnectionProvider
 {
     private static ?Connection $connection = null;
 
-    public static function createConnection(): Connection
-    {
-        return Connection::createFromString(CONNECTION_STRING);
-    }
-
     public static function getConnection(): Connection
     {
         if (self::$connection === null) {
-            self::$connection = Connection::createFromString(CONNECTION_STRING);
+            self::$connection = Connection::createFromString(CONNECTION_STRING, CONNECTION_USER, CONNECTION_PASS);
         }
         return self::$connection;
     }

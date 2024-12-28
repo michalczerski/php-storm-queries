@@ -8,7 +8,8 @@ $dbFilename = __DIR__ . "/../database.sqlite";
 if (file_exists($dbFilename)) {
     unlink($dbFilename);
 }
-
+const CONNECTION_USER = "";
+const CONNECTION_PASS = "";
 const CONNECTION_STRING = "sqlite:".__DIR__."/../database.sqlite";
 
 $connection = ConnectionProvider::getConnection();

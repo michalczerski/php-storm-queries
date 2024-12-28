@@ -15,3 +15,11 @@ services:
       MYSQL_PASSWORD: mysql
     ports:
       - "7801:3306"
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Sqlserver123
+      - MSSQL_PID=Developer
+    ports:
+      - "7802:1433"
