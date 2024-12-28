@@ -1,6 +1,6 @@
 <?php
 
-namespace integration;
+namespace integration\mapper;
 
 use data\ConnectionProvider;
 use data\models\Customer;
@@ -12,8 +12,8 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use stdClass;
-use Storm\Query\Map;
-use Storm\Query\Mapper;
+use Storm\Query\mapper\Map;
+use Storm\Query\mapper\Mapper;
 use Storm\Query\StormQueries;
 
 final class MapperTest extends TestCase

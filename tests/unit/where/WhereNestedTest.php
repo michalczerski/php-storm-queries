@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace unit;
+namespace unit\where;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\SelectQuery;
+use Storm\Query\queries\SelectQuery;
 
 final class WhereNestedTest extends TestCase
 {

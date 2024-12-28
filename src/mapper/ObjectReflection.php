@@ -1,8 +1,9 @@
 <?php
 
-namespace Storm\Query;
+namespace Storm\Query\mapper;
 
 use ReflectionClass;
+
 class ObjectReflection
 {
     private ReflectionClass $reflection;

@@ -1,10 +1,13 @@
 <?php
 
+namespace unit\queries;
+
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\SelectQuery;
+use Storm\Query\queries\SelectQuery;
+use InvalidArgumentException;
 
-final class QueryTest extends TestCase
+final class SelectTest extends TestCase
 {
     private SelectQuery $selectBuilder;
 

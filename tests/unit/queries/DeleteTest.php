@@ -1,12 +1,10 @@
 <?php
 
-namespace unit;
+namespace unit\queries;
 
 use PHPUnit\Framework\TestCase;
-use Storm\Query\DeleteQuery;
 use Storm\Query\IConnection;
-use DateTime;
-use Storm\Query\UpdateQuery;
+use Storm\Query\queries\DeleteQuery;
 
 final class DeleteTest extends TestCase
 {

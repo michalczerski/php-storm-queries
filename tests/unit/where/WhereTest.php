@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace unit;
+namespace unit\where;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\SelectQuery;
-use InvalidArgumentException;
+use Storm\Query\queries\SelectQuery;
 
 final class WhereTest extends TestCase
 {

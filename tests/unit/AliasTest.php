@@ -4,9 +4,9 @@ namespace unit;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\SelectQuery;
+use Storm\Query\queries\SelectQuery;
 
-final class SelectTest extends TestCase
+final class AliasTest extends TestCase
 {
     private SelectQuery $selectQuery;
 

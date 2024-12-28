@@ -1,9 +1,10 @@
 <?php
 
-namespace Storm\Query;
+namespace Storm\Query\queries;
 
+use Storm\Query\IConnection;
+use Storm\Query\ParameterNormalizer;
 use Storm\Query\sql\SqlInsertBuilder;
-use DateTime;
 
 class InsertQuery
 {

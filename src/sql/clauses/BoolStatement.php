@@ -3,7 +3,7 @@
 namespace Storm\Query\sql\clauses;
 
 use InvalidArgumentException;
-use Storm\Query\SelectQuery;
+use Storm\Query\queries\SelectQuery;
 
 class BoolStatement
 {

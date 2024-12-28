@@ -1,6 +1,6 @@
 <?php
 
-namespace integration;
+namespace integration\mapper;
 
 use data\ConnectionProvider;
 use data\models\mapperTypeTest\OrderWithoutProps;
@@ -15,11 +15,11 @@ use data\models\mapperTypeTest\ShipperWithoutProps;
 use data\models\mapperTypeTest\ShipperWithProps;
 use data\models\mapperTypeTest\ShipperWithTypedInitProps;
 use data\models\mapperTypeTest\ShipperWithTypedProps;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use DateTime;
-use Storm\Query\Map;
-use Storm\Query\Mapper;
+use Storm\Query\mapper\Map;
+use Storm\Query\mapper\Mapper;
 
 final class MapperTypesTest extends TestCase
 {

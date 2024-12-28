@@ -6,22 +6,6 @@ use data\ConnectionProvider;
 use PHPUnit\Framework\TestCase;
 use Storm\Query\StormQueries;
 
-//TODO TO SAMO DLA Integration
-
-//where (not) !=, <>
-//where IN
-//where not IN
-//where LIKE
-// where > >= < <=
-//where between
-//where null
-//where not null
-//where and or where (conjuction)
-//where zagniezdzoenia
-
-
-// string/int ? czy jest git -> DO INTEGRACYJNYCH
-
 final class WhereTest extends TestCase
 {
     private static StormQueries $queries;

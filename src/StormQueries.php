@@ -2,7 +2,12 @@
 
 namespace Storm\Query;
 
-class StormQueries
+use Storm\Query\queries\DeleteQuery;
+use Storm\Query\queries\InsertQuery;
+use Storm\Query\queries\SelectQuery;
+use Storm\Query\queries\UpdateQuery;
+
+readonly class StormQueries
 {
     public function __construct(private IConnection $connection)
     {

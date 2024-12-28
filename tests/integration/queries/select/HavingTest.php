@@ -1,12 +1,12 @@
 <?php
 
-namespace integration;
+namespace integration\queries\select;
 
 use data\ConnectionProvider;
 use PHPUnit\Framework\TestCase;
 use Storm\Query\StormQueries;
 
-final class GroupByTest extends TestCase
+final class HavingTest extends TestCase
 {
     private static StormQueries $queries;
 
@@ -16,9 +16,11 @@ final class GroupByTest extends TestCase
             ->select('country, city, count(*)')
             ->from('customers')
             ->groupBy('country, city')
+            ->having('count(*)', '>', 1)
+            ->having('city', 'LIKE', '%o%')
             ->find();
 
-        $this->assertCount(69, $items);
+        $this->assertCount(7, $items);
     }
 
     public static function setUpBeforeClass(): void

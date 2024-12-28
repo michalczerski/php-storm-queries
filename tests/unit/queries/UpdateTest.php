@@ -1,11 +1,11 @@
 <?php
 
-namespace unit;
+namespace unit\queries;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use DateTime;
-use Storm\Query\UpdateQuery;
+use Storm\Query\queries\UpdateQuery;
 
 final class UpdateTest extends TestCase
 {

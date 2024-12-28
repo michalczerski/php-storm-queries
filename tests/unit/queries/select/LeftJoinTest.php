@@ -1,6 +1,6 @@
 <?php
 
-namespace unit;
+namespace unit\queries\select;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;

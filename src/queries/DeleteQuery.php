@@ -1,9 +1,9 @@
 <?php
 
-namespace Storm\Query;
+namespace Storm\Query\queries;
 
+use Storm\Query\IConnection;
 use Storm\Query\sql\SqlDeleteBuilder;
-use Storm\Query\sql\SqlUpdateBuilder;
 
 class DeleteQuery
 {

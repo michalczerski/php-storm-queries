@@ -1,10 +1,10 @@
 <?php
 
-namespace unit;
+namespace unit\queries\select;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\SelectQuery;
+use Storm\Query\queries\SelectQuery;
 
 class LimitOffsetTest extends TestCase
 {

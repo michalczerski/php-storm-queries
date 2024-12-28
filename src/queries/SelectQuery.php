@@ -1,8 +1,11 @@
 <?php
 
-namespace Storm\Query;
+namespace Storm\Query\queries;
 
-use stdClass;
+use Storm\Query\IConnection;
+use Storm\Query\mapper\Map;
+use Storm\Query\mapper\Mapper;
+use Storm\Query\ParameterNormalizer;
 use Storm\Query\sql\SqlSelectBuilder;
 
 class SelectQuery
