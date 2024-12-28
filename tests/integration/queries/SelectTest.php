@@ -6,7 +6,7 @@ use data\ConnectionProvider;
 use PHPUnit\Framework\TestCase;
 use Storm\Query\StormQueries;
 
-final class QueryTest extends TestCase
+final class SelectTest extends TestCase
 {
     private static StormQueries $queries;
 

@@ -10,7 +10,7 @@ final class HavingTest extends TestCase
 {
     private static StormQueries $queries;
 
-    public function testGroupBY(): void
+    public function testHaving(): void
     {
         $items = self::$queries
             ->select('country, city, count(*)')

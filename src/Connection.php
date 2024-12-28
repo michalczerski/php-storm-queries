@@ -4,6 +4,7 @@ namespace Storm\Query;
 
 use DateTime;
 use PDO;
+use PDOStatement;
 use Exception;
 
 class Connection implements IConnection
@@ -55,7 +56,8 @@ class Connection implements IConnection
         try
         {
             $stmt = $this->pdo->prepare($query);
-            $stmt->execute($parameters);
+            $this->bindParams($stmt, $parameters);
+            $stmt->execute();
             $result = [];
             while ($row = $stmt->fetchObject()) {
                 $result[] = $row;
@@ -66,6 +68,23 @@ class Connection implements IConnection
         catch(Exception $exception) {
             $this->runOnFailure($query, $started, $exception);
             throw $exception;
+        }
+    }
+
+    private function bindParams(PDOStatement $statement, array $parameters): void
+    {
+        foreach ($parameters as $index => $value) {
+            if (is_int($value)) {
+                $type = PDO::PARAM_INT;
+            }
+            else if (is_bool($value)) {
+                $type = PDO::PARAM_BOOL;
+            }
+            else {
+                $type = PDO::PARAM_STR;
+            }
+
+            $statement->bindValue($index + 1, $value, $type);
         }
     }
 
