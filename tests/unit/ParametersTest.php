@@ -6,9 +6,6 @@ use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
 use Storm\Query\SelectQuery;
 
-/*
- * test zagniezdzonych andów i orów w unitach
- */
 class ParametersTest extends TestCase
 {
     private SelectQuery $selectQuery;

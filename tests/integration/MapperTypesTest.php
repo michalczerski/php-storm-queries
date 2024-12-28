@@ -5,12 +5,19 @@ namespace integration;
 use data\ConnectionProvider;
 use data\models\mapperTypeTest\OrderWithoutProps;
 use data\models\mapperTypeTest\OrderWithProps;
+use data\models\mapperTypeTest\OrderWithTypedInitProps;
+use data\models\mapperTypeTest\OrderWithTypedProps;
 use data\models\mapperTypeTest\ProductWithoutProps;
 use data\models\mapperTypeTest\ProductWithProps;
+use data\models\mapperTypeTest\ProductWithTypedInitProps;
+use data\models\mapperTypeTest\ProductWithTypedProps;
 use data\models\mapperTypeTest\ShipperWithoutProps;
 use data\models\mapperTypeTest\ShipperWithProps;
+use data\models\mapperTypeTest\ShipperWithTypedInitProps;
+use data\models\mapperTypeTest\ShipperWithTypedProps;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use DateTime;
 use Storm\Query\Map;
 use Storm\Query\Mapper;
 
@@ -77,12 +84,40 @@ final class MapperTypesTest extends TestCase
 
     public function testMappingToUserClassWithTypedProperties(): void
     {
+        $map = self::getMap(OrderWithTypedProps::class, ProductWithTypedProps::class, ShipperWithTypedProps::class);
 
+        $order = Mapper::map(self::$items, $map)[0];
+
+        $this->assertInstanceOf(OrderWithTypedProps::class, $order);
+        $this->assertInstanceOf(ProductWithTypedProps::class, $order->products[0]);
+        $this->assertInstanceOf(ShipperWithTypedProps::class, $order->shipper);
+        $this->assertEquals(10389, $order->id);
+        $this->assertEquals(new DateTime('1996-12-20'), $order->date);
+        $this->assertCount(4, $order->products);
+        $this->assertEquals(10, $order->products[0]->id);
+        $this->assertEquals('Ikura', $order->products[0]->name);
+        $this->assertEquals(16, $order->products[0]->quantity);
+        $this->assertEquals(2, $order->shipper->id);
+        $this->assertEquals('United Package', $order->shipper->name);
     }
 
     public function testMappingToUserClassWithTypedAndInitializedProperties(): void
     {
+        $map = self::getMap(OrderWithTypedInitProps::class, ProductWithTypedInitProps::class, ShipperWithTypedInitProps::class);
 
+        $order = Mapper::map(self::$items, $map)[0];
+
+        $this->assertInstanceOf(OrderWithTypedInitProps::class, $order);
+        $this->assertInstanceOf(ProductWithTypedInitProps::class, $order->products[0]);
+        $this->assertInstanceOf(ShipperWithTypedInitProps::class, $order->shipper);
+        $this->assertEquals(10389, $order->id);
+        $this->assertEquals(new DateTime('1996-12-20'), $order->date);
+        $this->assertCount(4, $order->products);
+        $this->assertEquals(10, $order->products[0]->id);
+        $this->assertEquals('Ikura', $order->products[0]->name);
+        $this->assertEquals(16, $order->products[0]->quantity);
+        $this->assertEquals(2, $order->shipper->id);
+        $this->assertEquals('United Package', $order->shipper->name);
     }
 
     private static function getMap(string $orderClassName, string $productClassName, string $shipperClassName): Map
