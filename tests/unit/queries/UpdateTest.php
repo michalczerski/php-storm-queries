@@ -38,7 +38,7 @@ final class UpdateTest extends TestCase
             ])
             ->where('id', '=', 7);
 
-        $this->assertEquals(["John Doe", "john@doe.com", 32, "1970-01-01 00:00:00 UTC", 7], $query->getParameters());
+        $this->assertEquals(["John Doe", "john@doe.com", 32, "1970-01-01 00:00:00", 7], $query->getParameters());
     }
 
     protected function setUp(): void

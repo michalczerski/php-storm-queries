@@ -5,3 +5,12 @@ services:
       target: postgres
     ports:
       - "7800:5432"
+  mysql:
+    image: mysql
+    ports:
+      - "7801:3306"
+    environment:
+      MYSQL_DATABASE: storm_test
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: mysql

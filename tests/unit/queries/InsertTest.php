@@ -36,7 +36,7 @@ final class InsertTest extends TestCase
                 'birthday' => new DateTime('1970-01-01')
             ]);
 
-        $this->assertEquals(["John Doe", "john@doe.com", 32, "1970-01-01 00:00:00 UTC"], $query->getParameters());
+        $this->assertEquals(["John Doe", "john@doe.com", 32, "1970-01-01 00:00:00"], $query->getParameters());
     }
 
     protected function setUp(): void

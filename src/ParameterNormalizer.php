@@ -3,6 +3,7 @@
 namespace Storm\Query;
 
 use DateTime;
+use DateTimeZone;
 
 class ParameterNormalizer
 {
@@ -11,7 +12,8 @@ class ParameterNormalizer
         $normalized = array();
         foreach($parameters as $key => $value) {
             if ($value instanceof DateTime) {
-                $value = $value->format('Y-m-d H:i:s T');
+                $value->setTimezone(new DateTimeZone('UTC'));
+                $value = $value->format('Y-m-d H:i:s');
             }
             if (is_bool($value)) {
                 $value = $value ? 1 : 0;

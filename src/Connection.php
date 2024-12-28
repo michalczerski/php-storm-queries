@@ -56,7 +56,7 @@ class Connection implements IConnection
         try
         {
             $stmt = $this->pdo->prepare($query);
-            $this->bindParams($stmt, $parameters);
+            $this->bindValues($stmt, $parameters);
             $stmt->execute();
             $result = [];
             while ($row = $stmt->fetchObject()) {
@@ -71,29 +71,13 @@ class Connection implements IConnection
         }
     }
 
-    private function bindParams(PDOStatement $statement, array $parameters): void
-    {
-        foreach ($parameters as $index => $value) {
-            if (is_int($value)) {
-                $type = PDO::PARAM_INT;
-            }
-            else if (is_bool($value)) {
-                $type = PDO::PARAM_BOOL;
-            }
-            else {
-                $type = PDO::PARAM_STR;
-            }
-
-            $statement->bindValue($index + 1, $value, $type);
-        }
-    }
-
     public function execute(string $query, array $parameters = []): bool
     {
         $started = new DateTime();
         try
         {
             $stmt = $this->pdo->prepare($query);
+            $this->bindValues($stmt, $parameters);
             $result = $stmt->execute($parameters);
             $this->runOnSuccess($query, $started);
             return $result;
@@ -138,105 +122,20 @@ class Connection implements IConnection
         }
     }
 
-    /*
-    public function insert(string $query, ...$args): int
+    private function bindValues(PDOStatement $statement, array $parameters): void
     {
-        $args = $this->prepareData($args);
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute($args);
-        return $this->pdo->lastInsertId();
-    }
-
-    public function insertArgs(string $query, array $args): int
-    {
-        $args = $this->prepareData($args);
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute($args);
-        return $this->pdo->lastInsertId();
-    }
-
-    public function insertNoneIdRecord(string $query, ...$args): void
-    {
-        $args = $this->prepareData($args);
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute($args);
-    }
-
-    public function insertUuid(string $query, ...$args): string
-    {
-        $args = $this->prepareData($args);
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute($args);
-        return $stmt->fetchColumn();
-    }
-
-    public function update(string $query, ...$args): void
-    {
-        $args = $this->prepareData($args);
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute($args);
-    }
-
-    public function delete(string $query, ...$args): void
-    {
-        $args = $this->prepareData($args);
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute($args);
-    }
-
-    public function fetch(string $statement, ...$args): array
-    {
-        return $this->query($statement, null, $args);
-    }
-
-    public function fetchArgs(string $statement, array $args): array
-    {
-        return $this->query($statement, null, $args);
-    }
-    public function fetchOneArgs(string $statement, array $args): object|null
-    {
-        $results = $this->query($statement, null, $args);
-        return count($results) ? $results[0] : null;
-    }
-    public function fetchOne(string $statement, ...$args): object|null
-    {
-        $results = $this->query($statement, null, $args);
-        return count($results) ? $results[0] : null;
-    }
-
-    public function lastInsertedId(): string
-    {
-        return $this->pdo->lastInsertId();
-    }
-
-    private function prepareData($args): array
-    {
-        foreach($args as $key => $arg)
-        {
-            if ($arg instanceof DateTime)
-            {
-                $args[$key] = $arg->format('Y-m-d H:i:s T');
+        foreach ($parameters as $index => $value) {
+            if (is_int($value)) {
+                $type = PDO::PARAM_INT;
             }
-            if (is_bool($arg))
-            {
-                $args[$key] = $arg ? 1 : 0;
+            else if (is_bool($value)) {
+                $type = PDO::PARAM_BOOL;
             }
+            else {
+                $type = PDO::PARAM_STR;
+            }
+
+            $statement->bindValue($index + 1, $value, $type);
         }
-
-        return $args;
     }
-
-    private function query(string $query, ?string $obj, array $args): array
-    {
-        $args = $this->prepareData($args);
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute($args);
-        $result = [];
-        while ($row = $stmt->fetchObject($obj)) {
-            $result[] = $row;
-        }
-
-        return $result;
-    }
-    */
 }

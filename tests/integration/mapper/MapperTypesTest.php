@@ -152,6 +152,7 @@ final class MapperTypesTest extends TestCase
             ->leftJoin('order_details od', 'od.order_id', 'o.order_id')
             ->leftJoin('products p', 'p.product_id', 'od.product_id')
             ->where('o.order_id', '=', 10389)
+            ->orderByAsc('p.product_id')
             ->find();
     }
 }
