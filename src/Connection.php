@@ -9,16 +9,15 @@ use Exception;
 
 class Connection implements IConnection
 {
+    private string $connectionString;
     private array $successCallback = [];
     private array $failCallbacks = [];
+    private PDO $pdo;
 
-    public function __construct(
-        private PDO $pdo
-    ){ }
-
-    public static function createFromString($connectionString, $user, $pass): Connection
+    public function __construct(string $connection, string $username, string $password)
     {
-        return new Connection(new PDO($connectionString, $user, $pass));
+        $this->connectionString = $connection;
+        $this->pdo = new PDO($connection, $username, $password);
     }
 
     public function begin(): void
@@ -88,7 +87,7 @@ class Connection implements IConnection
         }
     }
 
-    public function getLastInsertedId(): string
+    public function getLastInsertedId(): int
     {
         return $this->pdo->lastInsertId();
     }
@@ -137,5 +136,10 @@ class Connection implements IConnection
 
             $statement->bindValue($index + 1, $value, $type);
         }
+    }
+
+    public function getDatabaseType(): string
+    {
+        return substr($this->connectionString, 0, strpos($this->connectionString, ':'));
     }
 }

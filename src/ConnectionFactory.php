@@ -8,7 +8,6 @@ class ConnectionFactory
 {
     public static function createFromString(string $connection, string $user, string $password): IConnection
     {
-        $pdo = new PDO($connection, $user, $password);
-        return new Connection($pdo);
+        return new Connection($connection, $user, $password);
     }
 }

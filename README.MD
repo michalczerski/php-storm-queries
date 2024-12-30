@@ -22,6 +22,8 @@ The most benefits with other tools is:
 
 ## Overview of possibilites
 
+$connection->query("CALL getCustomersByCity(?)", ['London']);
+
 ```php
 use Storm\Query\StormQueries;
 use Storm\Query\Mapper\Map;
