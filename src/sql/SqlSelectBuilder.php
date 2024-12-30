@@ -41,6 +41,12 @@ class SqlSelectBuilder
         return $this;
     }
 
+    public function clearSelect(): SqlSelectBuilder
+    {
+        $this->selectClause->clear();
+        return $this;
+    }
+
     public function leftJoin(string $type, string $table, $l, $r): SqlSelectBuilder
     {
         $this->joinClause->addLeftJoin($type, $table, $l, $r);
@@ -50,6 +56,12 @@ class SqlSelectBuilder
     public function leftOuterJoin(string $type, string $table, $l, $r): SqlSelectBuilder
     {
         $this->joinClause->addLeftJoin('outer', $table, $l, $r);
+        return $this;
+    }
+
+    public function whereString(string $condition, array $parameters): SqlSelectBuilder
+    {
+        $this->whereClause->whereString($condition, $parameters);
         return $this;
     }
 

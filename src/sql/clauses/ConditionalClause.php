@@ -25,6 +25,15 @@ class ConditionalClause
         $this->add('OR', $arguments);
     }
 
+    public function whereString(string $condition, array $parameters): void
+    {
+        !empty($condition) or throw new InvalidArgumentException("WHERE has to have at least one parameter");
+
+        $this->addOperator('AND');
+
+        $this->tokens[] = new StringStatement($condition, $parameters);
+    }
+
     public function having(): void
     {
         $arguments = func_get_args();
@@ -42,6 +51,9 @@ class ConditionalClause
         $whereClause = '';
         foreach ($this->tokens as $i => $token) {
             if ($token instanceof BoolStatement) {
+                $whereClause .= $token->toString();
+            }
+            else if ($token instanceof StringStatement) {
                 $whereClause .= $token->toString();
             }
             else if (is_string($token) and in_array($token, ['OR', 'AND'])) {
@@ -62,6 +74,9 @@ class ConditionalClause
         $parameters = [];
         foreach($this->tokens as  $token) {
             if ($token instanceof BoolStatement) {
+                $parameters = array_merge($parameters, $token->getParameters());
+            }
+            if ($token instanceof StringStatement) {
                 $parameters = array_merge($parameters, $token->getParameters());
             }
         }

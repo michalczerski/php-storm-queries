@@ -14,11 +14,11 @@ The most benefits with other tools is:
 - handle sub queries
 - no configuration needed
 - fluent api
-- supports various databases (tested with PostgreSql, MySql, MSSQL, SQLite)
+- supports various databases (tested with PostgreSql, MySql, MariaDB, MSSQL, SQLite)
 - light and tidy code  (no additional dependencies)
 - efficiency - it's really thin layer over simple query 
 - developer friendly (profiling queries, overview of generated sql)
-- intuitive. You need only knowledge of SQL and PHP
+- intuitive and flexible. You can use it as query builder and assembly queries or use simple string conditions
 
 ## Overview of possibilites
 
@@ -105,6 +105,12 @@ It's helpful to assembly dynamic queries in your presentation layer (with left j
    $query->select('column3');
 ```
 
+### Short select
+```php
+$queries->from('customers', 'id = ?', [77])->findOne();
+```
+
+### Aggregation functions
 
 ### Left join
 

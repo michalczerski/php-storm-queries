@@ -15,6 +15,10 @@ services:
       MYSQL_PASSWORD: mysql
     ports:
       - "7801:3306"
+  maria:
+    image: mariadb
+    environment:
+      MARIADB_ROOT_PASSWORD: mariadb
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:

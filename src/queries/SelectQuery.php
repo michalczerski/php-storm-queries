@@ -41,6 +41,12 @@ class SelectQuery
         return $this;
     }
 
+    public function whereString(string $whereCondition, array $parameters): SelectQuery
+    {
+        $this->selectBuilder->whereString($whereCondition, $parameters);
+        return $this;
+    }
+
     public function where(): SelectQuery
     {
         call_user_func_array([$this->selectBuilder, 'where'], func_get_args());
@@ -129,5 +135,40 @@ class SelectQuery
             $results = Mapper::map($results, $map);
         }
         return $results;
+    }
+
+    public function min(string $column): float
+    {
+        $this->selectBuilder->clearSelect();
+        $this->selectBuilder->select('min(' . $column . ') as _min');
+        return $this->findSingle()->_min;
+    }
+
+    public function max(string $column): float
+    {
+        $this->selectBuilder->clearSelect();
+        $this->selectBuilder->select('max(' . $column . ') as _max');
+        return $this->findSingle()->_max;
+    }
+
+    public function count(): int
+    {
+        $this->selectBuilder->clearSelect();
+        $this->selectBuilder->select('count(*) as _count');
+        return $this->findSingle()->_count;
+    }
+
+    public function avg(string $column): float
+    {
+        $this->selectBuilder->clearSelect();
+        $this->selectBuilder->select('avg(' . $column . ') as _avg');
+        return round($this->findSingle()->_avg, 5);
+    }
+
+    public function sum(string $column): float
+    {
+        $this->selectBuilder->clearSelect();
+        $this->selectBuilder->select('sum(' . $column . ') as _sum');
+        return $this->findSingle()->_sum;
     }
 }

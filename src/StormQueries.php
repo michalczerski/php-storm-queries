@@ -30,6 +30,17 @@ readonly class StormQueries
         return $selectQuery;
     }
 
+    public function from(string $table, string $where = '', ...$parameters): SelectQuery
+    {
+        $selectQuery = new SelectQuery($this->connection);
+        $selectQuery->select('*');
+        $selectQuery->from($table);
+        if (!empty($where)) {
+            $selectQuery->whereString($where, $parameters);
+        }
+        return $selectQuery;
+    }
+
     public function update($table, $values = array()): UpdateQuery
     {
         $query = new UpdateQuery($this->connection);

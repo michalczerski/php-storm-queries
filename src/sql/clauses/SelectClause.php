@@ -8,6 +8,11 @@ class SelectClause
 {
     private array $columns = [];
 
+    public function clear(): void
+    {
+        $this->columns = [];
+    }
+
     public function add(array $columns): void
     {
         $this->columns = array_merge($this->columns, $columns);
