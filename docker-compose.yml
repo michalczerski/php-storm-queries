@@ -18,7 +18,11 @@ services:
   maria:
     image: mariadb
     environment:
+      MARIADB_USER: mariadb
+      MARIADB_PASSWORD: mariadb
       MARIADB_ROOT_PASSWORD: mariadb
+    ports:
+      - "7802:3306"
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -26,4 +30,4 @@ services:
       - MSSQL_SA_PASSWORD=Sqlserver123
       - MSSQL_PID=Developer
     ports:
-      - "7802:1433"
+      - "7803:1433"
