@@ -1,4 +1,5 @@
 {
+    "name": "storm/queries",
     "autoload": {
         "psr-4": {
             "Storm\\Query\\": "src"
@@ -6,5 +7,11 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^11.5"
-    }
+    },
+    "authors": [
+        {
+            "name": "Michał Czerski",
+            "email": "czerski.michal@gmail.com"
+        }
+    ]
 }
