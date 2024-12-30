@@ -18,8 +18,6 @@ services:
   maria:
     image: mariadb
     environment:
-      MARIADB_USER: mariadb
-      MARIADB_PASSWORD: mariadb
       MARIADB_ROOT_PASSWORD: mariadb
     ports:
       - "7802:3306"
