@@ -1,3 +1,40 @@
+CREATE TABLE insert_test
+(
+    id   integer IDENTITY(1,1) primary key,
+    name varchar(64) not null UNIQUE
+);
+
+CREATE TABLE update_test
+(
+    id   int IDENTITY(1,1) primary key,
+    name varchar(64) not null UNIQUE
+);
+
+CREATE TABLE delete_test
+(
+    id   integer IDENTITY(1,1) primary key,
+    name varchar(64) not null UNIQUE
+)
+
+CREATE TABLE types_test
+(
+    id       integer IDENTITY(1,1) primary key,
+    uid      uniqueidentifier        null,
+    name     varchar(64) not null UNIQUE,
+    num      int null,
+    num_f    decimal(5,2) null,
+    is_set   BIT null,
+    date     date null,
+    datetime datetime null
+);
+
+INSERT INTO update_test (name) VALUES ('first'), ('second');
+INSERT INTO delete_test (name) VALUES ('first'), ('second');
+
+INSERT INTO types_test (uid, name, num, num_f, is_set, date, datetime) VALUES ('c3a5d2f8-471d-47bc-a56c-6f73d61215b9', 'first',1, 1.11, 1, '2021-01-01', '2021-01-01 12:13:14');
+INSERT INTO types_test (uid, name, num, num_f, is_set, date, datetime) VALUES ('3f333df6-90a4-4fda-8dd3-9485d27cee36', 'second',2, 2.22, 0, '2022-02-02', '2022-02-02 12:13:14');
+
+
 CREATE TABLE categories
 (
     category_id   int NOT NULL,
@@ -79,29 +116,3 @@ CREATE TABLE suppliers
     country       varchar(255) DEFAULT NULL,
     phone         varchar(255) DEFAULT NULL
 );
-
-CREATE TABLE insert_test
-(
-    id   integer IDENTITY(1,1) primary key,
-    name varchar(64) not null UNIQUE,
-    is_checked bit,
-    num int,
-    num_f decimal,
-    date datetime not null
-);
-
-CREATE TABLE update_test
-(
-    id   int IDENTITY(1,1) primary key,
-    name varchar(64) not null UNIQUE,
-    is_checked bit,
-    num int,
-    num_f decimal,
-    date datetime not null
-);
-
-CREATE TABLE delete_test
-(
-    id   integer IDENTITY(1,1) primary key ,
-    name varchar(64) not null UNIQUE
-)

@@ -16,7 +16,7 @@ final class SelectTest extends TestCase
             ->select('*')
             ->from('customers')
             ->where('city', 'London')
-            ->findOne();
+            ->findSingle();
 
         $this->assertNotNull($item);
     }

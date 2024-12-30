@@ -18,8 +18,8 @@ use data\models\mapperTypeTest\ShipperWithTypedProps;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Storm\Query\mapper\Map;
-use Storm\Query\mapper\Mapper;
+use Storm\Query\Mapper\Map;
+use Storm\Query\Mapper\Mapper;
 
 final class MapperTypesTest extends TestCase
 {

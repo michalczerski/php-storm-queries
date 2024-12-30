@@ -1,6 +1,6 @@
 <?php
 
-namespace Storm\Query\mapper;
+namespace Storm\Query\Mapper;
 
 use DateTime;
 use InvalidArgumentException;

@@ -12,8 +12,8 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ReflectionException;
 use stdClass;
-use Storm\Query\mapper\Map;
-use Storm\Query\mapper\Mapper;
+use Storm\Query\Mapper\Map;
+use Storm\Query\Mapper\Mapper;
 use Storm\Query\StormQueries;
 
 final class MapperTest extends TestCase
@@ -66,7 +66,7 @@ final class MapperTest extends TestCase
         $item = self::$queries
             ->select('c.customer_id', 'c.customer_name', 'c.address')
             ->from('customers c')
-            ->findOne($map);
+            ->findSingle($map);
 
         $this->assertInstanceOf(Customer::class, $item);
     }

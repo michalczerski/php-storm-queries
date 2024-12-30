@@ -1,4 +1,3 @@
-
 INSERT INTO categories (category_id, category_name, description) VALUES
     (1, 'Beverages', 'Soft drinks, coffees, teas, beers, and ales'),
     (2, 'Condiments', 'Sweet and savory sauces, relishes, spreads, and seasonings'),

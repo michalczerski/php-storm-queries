@@ -38,12 +38,21 @@ class InsertQuery
         return $this->insertBuilder->getParameters();
     }
 
-    public function execute(): void
+    public function execute($returnLastInsertedId = true): int
     {
         $this->connection->execute($this->getSql(), $this->getParameters());
+        if ($returnLastInsertedId) {
+            return $this->connection->getLastInsertedId();
+        }
+        return 0;
     }
 
-    public function getLastInsertedId(): string
+    public function getLastInsertedId(): int
+    {
+        return $this->connection->getLastInsertedId();
+    }
+
+    public function getLastInsertedIdAsString(): string
     {
         return $this->connection->getLastInsertedId();
     }

@@ -16,17 +16,23 @@ final class InsertTest extends TestCase
         $query = self::$queries
             ->insert('insert_test')
             ->setValues([
-                'name' => 'One two three',
-                'is_checked' => true,
-                'num' => 7,
-                'num_f' => 77.7,
-                'date' => new DateTime('2020-01-01'),
+                'name' => 'first'
             ]);
 
         $query->execute();
 
         $this->assertEquals(1, $query->getLastInsertedId());
     }
+
+    public function testInsertWithOneInvoke(): void
+    {
+        $query = self::$queries->insert('insert_test', ['name' => 'second']);
+
+        $query->execute();
+
+        $this->assertEquals(2, $query->getLastInsertedId());
+    }
+
     public static function setUpBeforeClass(): void
     {
         self::$queries = ConnectionProvider::getStormQueries();

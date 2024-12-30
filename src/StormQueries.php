@@ -13,10 +13,13 @@ readonly class StormQueries
     {
     }
 
-    public function insert($table): InsertQuery
+    public function insert($table, $values = array()): InsertQuery
     {
         $query = new InsertQuery($this->connection);
         $query->into($table);
+        if (count($values)) {
+            $query->setValues($values);
+        }
         return $query;
     }
 
@@ -27,10 +30,13 @@ readonly class StormQueries
         return $selectQuery;
     }
 
-    public function update($table): UpdateQuery
+    public function update($table, $values = array()): UpdateQuery
     {
         $query = new UpdateQuery($this->connection);
         $query->update($table);
+        if (count($values)) {
+            $query->setValues($values);
+        }
         return $query;
     }
 

@@ -3,8 +3,8 @@
 namespace Storm\Query\queries;
 
 use Storm\Query\IConnection;
-use Storm\Query\mapper\Map;
-use Storm\Query\mapper\Mapper;
+use Storm\Query\Mapper\Map;
+use Storm\Query\Mapper\Mapper;
 use Storm\Query\ParameterNormalizer;
 use Storm\Query\sql\SqlSelectBuilder;
 
@@ -111,7 +111,7 @@ class SelectQuery
         return $this->selectBuilder->getParameters();
     }
 
-    public function findOne(Map $map = null): ?object
+    public function findSingle(Map $map = null): ?object
     {
         $results = $this->find();
         if ($map !== null) {
