@@ -71,7 +71,7 @@ final class SelectTest extends TestCase
     {
         $avg = self::$queries->from('products')->avg('price');
 
-        $this->assertEquals(28.86636, $avg);
+        $this->assertEquals(28.86636, round($avg, 5));
     }
 
     public static function setUpBeforeClass(): void

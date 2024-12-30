@@ -162,7 +162,7 @@ class SelectQuery
     {
         $this->selectBuilder->clearSelect();
         $this->selectBuilder->select('avg(' . $column . ') as _avg');
-        return round($this->findSingle()->_avg, 5);
+        return $this->findSingle()->_avg;
     }
 
     public function sum(string $column): float
