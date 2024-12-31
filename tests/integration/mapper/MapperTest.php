@@ -44,7 +44,7 @@ final class MapperTest extends TestCase
         Mapper::map(self::$items, $map);
     }
 
-    public function testFind(): void
+    public function testFindWithMap(): void
     {
         $map = Map::create(Customer::class, 'customer_id', [
             'customer_id' => 'id',
@@ -58,7 +58,7 @@ final class MapperTest extends TestCase
         $this->assertCount(91, $items);
     }
 
-    public function testFindOne(): void
+    public function testFindOneWithMap(): void
     {
         $map = Map::create(Customer::class, 'customer_id', [
             'customer_id' => 'id',
@@ -69,6 +69,27 @@ final class MapperTest extends TestCase
             ->findSingle($map);
 
         $this->assertInstanceOf(Customer::class, $item);
+    }
+
+    public function testFlatResults(): void
+    {
+        $items = self::$queries
+            ->select('c.customer_id', 'c.customer_name', 'c.address')
+            ->from('customers c')
+            ->find();
+
+        $map = Map::create(stdClass::class, 'customer_id', [
+            'customer_id' => 'id',
+            'customer_name' => 'name'
+        ]);
+
+        $customers = Mapper::map($items, $map);
+        $customer = array_find($customers, function($customer) {
+            return $customer->id == 11;
+        });
+
+        $this->assertEquals("B's Beverages", $customer->name);
+        $this->assertCount(91, $customers);
     }
 
     public function testHierarchicalResult(): void
@@ -98,66 +119,49 @@ final class MapperTest extends TestCase
             )
         );
 
-        $items = Mapper::map(self::$items, $map);
+        $customers = Mapper::map(self::$items, $map);
 
-        $customer = self::getByCustomerId($items, 10);
+        $this->assertCount(91, $customers);
 
+        $customer = array_find($customers, function($customer) {
+            return $customer->id == 10;
+        });
+        $this->assertCustomer($customer);
+
+        $this->assertCount(4, $customer->orders);
+        $order = array_find($customer->orders, function($order) {
+            return $order->id == 10389;
+        });
+        $this->assertOrder($order);
+
+        $this->assertCount(4, $order->products);
+        $product = array_find($order->products, function($product) {
+           return $product->id == 10;
+        });
+        $this->assertProduct($product);
+    }
+
+    private function assertCustomer(Customer $customer): void
+    {
         $this->assertEquals(10, $customer->id);
         $this->assertEquals("Bottom-Dollar Marketse", $customer->name);
         $this->assertEquals("23 Tsawassen Blvd.", $customer->address);
         $this->assertEquals("Tsawassen", $customer->city);
         $this->assertEquals("T2F 8M4", $customer->postalCode);
         $this->assertEquals("Canada", $customer->country);
+    }
 
-        $order = current(array_filter($customer->orders, function (Order $order) {
-            if ($order->id == 10389) {
-                return $order;
-            }
-        }));
-        $this->assertCount(4, $customer->orders);
+    private function assertOrder(Order $order): void
+    {
         $this->assertEquals(new DateTime('1996-12-20'), $order->date);
         $this->assertEquals(2, $order->shipper->id);
         $this->assertEquals("United Package", $order->shipper->name);
+    }
 
-        $product = current(array_filter($order->products, function ($item) {
-            if ($item->id == 10) {
-                return $item;
-            }
-        }));
-        $this->assertCount(4, $order->products);
+    private function assertProduct(Product $product): void
+    {
         $this->assertEquals(16, $product->quantity);
         $this->assertEquals('Ikura', $product->name);
-
-        $this->assertCount(91, $items);
-    }
-
-    public function testFlatResult(): void
-    {
-        $items = self::$queries
-            ->select('c.customer_id', 'c.customer_name', 'c.address')
-            ->from('customers c')
-            ->find();
-
-        $map = Map::create(stdClass::class, 'customer_id', [
-            'customer_id' => 'id',
-            'customer_name' => 'name'
-        ]);
-
-        $items = Mapper::map($items, $map);
-        $customer = self::getByCustomerId($items, 11);
-
-        $this->assertEquals("B's Beverages", $customer->name);
-        $this->assertCount(91, $items);
-    }
-
-    public static function getByCustomerId($items, int $customerId): ?object
-    {
-        foreach ($items as $item) {
-            if ($item->id == $customerId) {
-                return $item;
-            }
-        }
-        return null;
     }
 
     public static function setUpBeforeClass(): void

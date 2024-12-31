@@ -1,10 +1,10 @@
 <?php
 
-namespace Storm\Query\queries;
+namespace Storm\Query\Queries;
 
 use Storm\Query\IConnection;
 use Storm\Query\ParameterNormalizer;
-use Storm\Query\sql\SqlUpdateBuilder;
+use Storm\Query\Sql\SqlUpdateBuilder;
 
 class UpdateQuery
 {

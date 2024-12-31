@@ -2,10 +2,10 @@
 
 namespace Storm\Query;
 
-use Storm\Query\queries\DeleteQuery;
-use Storm\Query\queries\InsertQuery;
-use Storm\Query\queries\SelectQuery;
-use Storm\Query\queries\UpdateQuery;
+use Storm\Query\Queries\DeleteQuery;
+use Storm\Query\Queries\InsertQuery;
+use Storm\Query\Queries\SelectQuery;
+use Storm\Query\Queries\UpdateQuery;
 
 readonly class StormQueries
 {
@@ -51,14 +51,13 @@ readonly class StormQueries
         return $query;
     }
 
-    public function delete($table): DeleteQuery
+    public function delete($table, string $where ='', ...$parameters): DeleteQuery
     {
         $query = new DeleteQuery($this->connection);
         $query->from($table);
+        if (!empty($where)) {
+            $query->whereString($where, $parameters);
+        }
         return $query;
     }
-
-
-
-
 }

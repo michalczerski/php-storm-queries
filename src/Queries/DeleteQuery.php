@@ -1,9 +1,9 @@
 <?php
 
-namespace Storm\Query\queries;
+namespace Storm\Query\Queries;
 
 use Storm\Query\IConnection;
-use Storm\Query\sql\SqlDeleteBuilder;
+use Storm\Query\Sql\SqlDeleteBuilder;
 
 class DeleteQuery
 {
@@ -19,7 +19,11 @@ class DeleteQuery
         $this->deleteBuilder->from($table);
         return $this;
     }
-
+    public function whereString(string $whereCondition, array $parameters): DeleteQuery
+    {
+        $this->deleteBuilder->whereString($whereCondition, $parameters);
+        return $this;
+    }
     public function where(): DeleteQuery
     {
         call_user_func_array([$this->deleteBuilder, 'where'], func_get_args());

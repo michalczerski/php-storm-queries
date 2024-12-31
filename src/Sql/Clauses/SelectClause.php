@@ -1,6 +1,6 @@
 <?php
 
-namespace Storm\Query\sql\clauses;
+namespace Storm\Query\Sql\Clauses;
 
 use InvalidArgumentException;
 

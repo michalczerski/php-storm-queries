@@ -4,7 +4,7 @@ namespace unit;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\queries\SelectQuery;
+use Storm\Query\Queries\SelectQuery;
 
 class ParametersTest extends TestCase
 {

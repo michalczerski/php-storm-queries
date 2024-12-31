@@ -26,11 +26,9 @@ final class InsertTest extends TestCase
 
     public function testInsertWithOneInvoke(): void
     {
-        $query = self::$queries->insert('insert_test', ['name' => 'second']);
+        $id = self::$queries->insert('insert_test', ['name' => 'second'])->execute();
 
-        $query->execute();
-
-        $this->assertEquals(2, $query->getLastInsertedId());
+        $this->assertEquals(2, $id);
     }
 
     public static function setUpBeforeClass(): void

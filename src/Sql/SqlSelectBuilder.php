@@ -1,12 +1,12 @@
 <?php
 
-namespace Storm\Query\sql;
+namespace Storm\Query\Sql;
 
-use Storm\Query\sql\clauses\ConditionalClause;
+use Storm\Query\Sql\Clauses\ConditionalClause;
 use InvalidArgumentException;
-use Storm\Query\sql\clauses\JoinClause;
-use Storm\Query\sql\clauses\OrderByClause;
-use Storm\Query\sql\clauses\SelectClause;
+use Storm\Query\Sql\Clauses\JoinClause;
+use Storm\Query\Sql\Clauses\OrderByClause;
+use Storm\Query\Sql\Clauses\SelectClause;
 
 class SqlSelectBuilder
 {

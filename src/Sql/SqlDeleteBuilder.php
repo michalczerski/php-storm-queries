@@ -1,8 +1,8 @@
 <?php
 
-namespace Storm\Query\sql;
+namespace Storm\Query\Sql;
 
-use Storm\Query\sql\clauses\ConditionalClause;
+use Storm\Query\Sql\Clauses\ConditionalClause;
 
 class SqlDeleteBuilder
 {
@@ -17,6 +17,11 @@ class SqlDeleteBuilder
     public function from(string $tableName): SqlDeleteBuilder
     {
         $this->tableName = $tableName;
+        return $this;
+    }
+    public function whereString(string $condition, array $parameters): SqlDeleteBuilder
+    {
+        $this->whereClause->whereString($condition, $parameters);
         return $this;
     }
 

@@ -5,7 +5,7 @@ namespace unit\queries;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\queries\InsertQuery;
+use Storm\Query\Queries\InsertQuery;
 
 final class InsertTest extends TestCase
 {

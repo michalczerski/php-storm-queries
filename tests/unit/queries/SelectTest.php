@@ -4,7 +4,7 @@ namespace unit\queries;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\queries\SelectQuery;
+use Storm\Query\Queries\SelectQuery;
 use InvalidArgumentException;
 
 final class SelectTest extends TestCase
@@ -42,6 +42,18 @@ final class SelectTest extends TestCase
         $query = trim(str_replace("\n", ' ', $query));
 
         $this->assertEquals("SELECT * FROM users", $query);
+    }
+
+    public function testCombiningSelectInvokes(): void
+    {
+        $this->selectBuilder->select('colA');
+        $this->selectBuilder->select('colB');
+        $this->selectBuilder->from('users');
+
+        $query = $this->selectBuilder->getSql();
+        $query = trim(str_replace("\n", ' ', $query));
+
+        $this->assertEquals("SELECT colA, colB FROM users", $query);
     }
 
     protected function setUp(): void

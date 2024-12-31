@@ -18,4 +18,8 @@ interface IConnection
     public function executeCommands($content): void;
 
     public function getDatabaseType(): string;
+
+    public function onSuccess(callable $callback): void;
+
+    public function onFailure(callable $callback): void;
 }

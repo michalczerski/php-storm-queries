@@ -1,9 +1,9 @@
 <?php
 
-namespace Storm\Query\sql\clauses;
+namespace Storm\Query\Sql\Clauses;
 
 use InvalidArgumentException;
-use Storm\Query\queries\SelectQuery;
+use Storm\Query\Queries\SelectQuery;
 
 class BoolStatement
 {

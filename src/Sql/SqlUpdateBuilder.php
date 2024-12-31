@@ -1,7 +1,7 @@
 <?php
 
-namespace Storm\Query\sql;
-use Storm\Query\sql\clauses\ConditionalClause;
+namespace Storm\Query\Sql;
+use Storm\Query\Sql\Clauses\ConditionalClause;
 
 class SqlUpdateBuilder
 {

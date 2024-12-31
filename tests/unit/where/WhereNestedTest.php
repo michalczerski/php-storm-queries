@@ -5,7 +5,7 @@ namespace unit\where;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\queries\SelectQuery;
+use Storm\Query\Queries\SelectQuery;
 
 final class WhereNestedTest extends TestCase
 {

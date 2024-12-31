@@ -4,7 +4,7 @@ namespace unit\queries;
 
 use PHPUnit\Framework\TestCase;
 use Storm\Query\IConnection;
-use Storm\Query\queries\DeleteQuery;
+use Storm\Query\Queries\DeleteQuery;
 
 final class DeleteTest extends TestCase
 {

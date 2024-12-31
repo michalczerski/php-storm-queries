@@ -1,6 +1,6 @@
 <?php
 
-namespace Storm\Query\sql;
+namespace Storm\Query\Sql;
 
 class SqlInsertBuilder
 {
