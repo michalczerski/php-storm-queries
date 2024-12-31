@@ -25,15 +25,15 @@ Most interesting features
 * [2. Select query](#selectquery)
   * [2. Mapping data to hierarchical model](#block2)
   * [2. Assembling query and critera-finder pattern](#block2)
-* [2. Insert query](#block2)
-* [2. Update query](#block2)
-* [2. Delete query](#block2)
-* [2. Profiling nad logging queries](#block2)
-* [2. Notice](#block2)
-* [2. Tests](#block2)
-* [2. Examples / use cases](#block2)
-* [2. Contact / author](#block2)
-* [2. License ](#block2)
+* [3. Insert query](#insertquery)
+* [4. Update query](#block2)
+* [5. Delete query](#block2)
+* [5. Profiling nad logging queries](#block2)
+* [6. Notice](#block2)
+* [7. Tests](#block2)
+* [8. Examples / use cases](#block2)
+* [9. Contact / author](#block2)
+* [10. License ](#block2)
 
 <a name="quickstart"></a>
 ## Quick start
@@ -56,7 +56,7 @@ $connection = ConnectionFactory::createFromstring("dsn", "user", "password");
 $queries = new StormQueries($connection);
 ```
 
-### Full example
+### Full working example
 
 ```php
 use Storm\Query\StormQueries;
@@ -67,7 +67,7 @@ $connection = ConnectionFactory::createFromString(
     "mysql:host=localhost;port=7801;dbname=storm_test", "mysql", "mysql")
 $queries = new StormQueries($connection);
 
-Map::create(Order::class, 'order_id', [
+$map = Map::create(Order::class, 'order_id', [
     'order_id' => 'id',
     'order_date' => 'date',
 ])
@@ -78,11 +78,11 @@ Map::create(Order::class, 'order_id', [
         'quantity' => 'quantity'])
 );
 
-$orders = $queries
+$orders = self::$queries
     ->select('*')
     ->from('orders o')
-    ->leftJoin('products p', 'o.product_id', 'p.id')
-    ->orderByDesc('o.total')
+    ->leftJoin('order_details od', 'od.order_id', 'o.order_id')
+    ->leftJoin('products p', 'od.product_id', 'p.product_id')
     ->find($map);
      
 foreach($orders as $order) {
@@ -333,7 +333,8 @@ $criteria = ProductCriteria::create()
 $products = find_products($stormQueries, $criteria);
 ```
 
-## Insert
+<a name="insertquery"></a>
+## Insert query
 
 ```php
 $id = $stormQueries->insert('person', ['name' => 'Micheal'])->execute();
@@ -342,11 +343,11 @@ If you don't want to invoke `getLastInsertedId` on `PDO` pass `false` to `execut
 ```php
 $stormQueries->insert('person', ['name' => 'Micheal'])->execute(false);
 ```
-## Update
+## Update query
 ```php
 $stormQueries->update('person', ['name' => 'Matthew'])->where('id', 2)->execute();
 ```
-## Delete
+## Delete query
 ```php
 $stormQueries->delete('person')->where('id', 1)->execute();
 $stormQueries->delete('person', 'id = ?', 1)->execute();
@@ -366,7 +367,7 @@ $connection->onFailre(function(string $sql, DateInterval $interval, Exception $e
 })
 ```
 ## Notice 
-StormQueries support PDO and databases which support it.\
+StormQueries uses PDO and databases which support it.\
 Tested with PostgreSQL, MySQL, MariaDB, SqlServer and Sqlite.
 ## Unit / Integration tests
 
