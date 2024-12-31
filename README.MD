@@ -20,20 +20,27 @@ Most interesting features
 - developer friendly (profiling queries, overview of generated sql)
 - intuitive and flexible. You can use it as query builder and assembly queries or use simple string conditions
 
-<a name="index_block"></a>
+<a name="index"></a>
 * [1. Quick start](#quickstart)
 * [2. Select query](#selectquery)
-  * [2. Mapping data to hierarchical model](#block2)
-  * [2. Assembling query and critera-finder pattern](#block2)
+  * [Aggregation functions](#aggregatefunctions)
+  * [Left join](#leftjoin)
+  * [Where](#where)
+  * [Sub query](#where)
+  * [OrderBy](#orderby)
+  * [GroupBy](#groupby)
+  * [Having](#having)
+  * [Mapping data to hierarchical model](#mapping)
+  * [Assembling query and critera-finder pattern](#assemblingqueries)
 * [3. Insert query](#insertquery)
-* [4. Update query](#block2)
-* [5. Delete query](#block2)
-* [5. Profiling nad logging queries](#block2)
-* [6. Notice](#block2)
-* [7. Tests](#block2)
-* [8. Examples / use cases](#block2)
-* [9. Contact / author](#block2)
-* [10. License ](#block2)
+* [4. Update query](#updatequery)
+* [5. Delete query](#deletequery)
+* [5. Profiling nad logging queries](#profiling)
+* [6. Notice](#notice)
+* [7. Tests](#btests)
+* [8. Examples](#examples)
+* [9. Author](#author)
+* [10. License ](#license)
 
 <a name="quickstart"></a>
 ## Quick start
@@ -129,7 +136,7 @@ $stormQueries->select('columnA')->select('columnB')->select('columnC');
 ```
 builds `SELECT columnA, columnB, columnC`
 
-### Short select
+### Short select [↑](#index)
 ```php
 $stormQueries->from('customers')->find();
 $stormQueries->from('customers', 'name LIKE ? AND city = ?', 'M%' 'London')->find();
@@ -137,7 +144,7 @@ $stormQueries->from('customers', 'id = ?', 14]->findOne();
 $stormQueries->from('customers')->where('id', 14)->findOne();
 ```
 
-### Aggregation functions
+### Aggregation functions [↑](#index)
 
 Do not use them in sub queries because they immediately fetch data from db.
  ```php
@@ -148,7 +155,7 @@ $stormQueries->from('products', 'category_id = ?', 7)->sum('price');
 $stormQueries->from('products', 'category_id = ?', 7)->avg('price');
  ```
 
-### Left join
+### Left join [↑](#index)
 ```php
 $stormQueries
     ->from('tableA')
@@ -157,7 +164,7 @@ $stormQueries
     ->find();
 ```
 
-### Where
+### Where [↑](#index)
 ```php
 $stormQueries
     ->from('tableA')
@@ -194,7 +201,7 @@ $stormQueries
     });
 ```
 
-### SubQuery
+### Sub query [↑](#index)
 
 You can pass select query as parameter of where making it sub query.
 ```php
@@ -206,7 +213,7 @@ $stormQueries
     ->where('field5', '=', 9);
 ```
 
-### OrderBy
+### OrderBy [↑](#index)
 ```php
 $stormQueries->from('table')->orderByDesc('column1');
 $stormQueries->from('table')->orderByAsc('column1');
@@ -214,12 +221,12 @@ $stormQueries->from('table')->orderBy('column1', -1); //descending
 $stormQueries->from('table')->orderBy('column1', 1) //ascending
 $stormQueries->from('table')->orderByDesc('column1')->orderByDesc('column2');
 ```
-### GroupBy
+### GroupBy [↑](#index)
 ```php
 $stormQueries->from('table')->groupBy('column1', 'column2');
 $stormQueries->from('table')->groupBy('column1')->groupBy('column2')->groupBy('column3')
 ```
-### Having
+### Having [↑](#index)
 Everything what refers to `where` or `orWhere` refers to `having` and `orHaving`
 ```php
 $stormQueries
@@ -231,7 +238,7 @@ $stormQueries
     ->find();
 ```
 
-## Mapping data to hierarchical structure
+## Mapping data to hierarchical structure [↑](#index)
 
 In my opinion most interesting part of StormQueries is mapping which allows to work with hierarchical data without any configuration 
 (json, xml, attributes in classes). 
@@ -300,7 +307,7 @@ foreach($customers as $customer) {
 
 Code above is taken from integration test in `test/integration/MapperTest.php`
 
-## Assembling query and critera-finder pattern
+## Assembling query and critera-finder pattern [↑](#index)
 
 ```php 
 function find_products($criteria): array
@@ -334,7 +341,7 @@ $products = find_products($stormQueries, $criteria);
 ```
 
 <a name="insertquery"></a>
-## Insert query
+## Insert query [↑](#index)
 
 ```php
 $id = $stormQueries->insert('person', ['name' => 'Micheal'])->execute();
@@ -343,16 +350,16 @@ If you don't want to invoke `getLastInsertedId` on `PDO` pass `false` to `execut
 ```php
 $stormQueries->insert('person', ['name' => 'Micheal'])->execute(false);
 ```
-## Update query
+## Update query [↑](#index)
 ```php
 $stormQueries->update('person', ['name' => 'Matthew'])->where('id', 2)->execute();
 ```
-## Delete query
+## Delete query [↑](#index)
 ```php
 $stormQueries->delete('person')->where('id', 1)->execute();
 $stormQueries->delete('person', 'id = ?', 1)->execute();
 ```
-## Profiling nad logging queries 
+## Profiling nad logging queries [↑](#index)
 
 To track what queries are going to database add `callback` to `IConnection` object.  
 ```php
@@ -366,23 +373,23 @@ $connection->onFailre(function(string $sql, DateInterval $interval, Exception $e
     //log here
 })
 ```
-## Notice 
+## Notice [↑](#index)
 StormQueries uses PDO and databases which support it.\
 Tested with PostgreSQL, MySQL, MariaDB, SqlServer and Sqlite.
-## Unit / Integration tests
+## Tests [↑](#index)
 
 To run tests use `docker composer up` and run one of `run.*.cmd`
 
-## Examples / use cases
+## Examples [↑](#index)
 
 If you are looking for more use cases take a look at tests in `test` directory of project.
 
-## Contact / author
+## Author [↑](#index)
 
 Michał Czerski
 
 If you have any question or ideas you want share with me contact me on GitHub.
 
-## Licence
+## License [↑](#index)
 
 StormQueries is licensed under MIT licence.
