@@ -20,15 +20,27 @@ Most interesting features
 - developer friendly (profiling queries, overview of generated sql)
 - intuitive and flexible. You can use it as query builder and assembly queries or use simple string conditions
 
-* [1. Quick start](#block1)
-* [2. Select query](#block1)
+<a name="index_block"></a>
+* [1. Quick start](#quickstart)
+* [2. Select query](#selectquery)
+  * [2. Mapping data to hierarchical model](#block2)
+  * [2. Assembling query and critera-finder pattern](#block2)
+* [2. Insert query](#block2)
+* [2. Update query](#block2)
+* [2. Delete query](#block2)
+* [2. Profiling nad logging queries](#block2)
+* [2. Notice](#block2)
+* [2. Tests](#block2)
+* [2. Examples / use cases](#block2)
+* [2. Contact / author](#block2)
+* [2. License ](#block2)
 
+<a name="quickstart"></a>
 ## Quick start
-
 
 ### Installation
 
-You will need composer or use Storm PHP Framework (Stom PHP Queries are part of it)
+You will need composer or use Storm PHP Framework (Storm PHP Queries are part of it)
 
 ```php
 composer require stormmore/queries
@@ -51,7 +63,8 @@ use Storm\Query\StormQueries;
 use Storm\Query\Mapper\Map;
 use Storm\Query\ConnectionFactory;
 
-$connection = ConnectionFactory::createFromString("mysql:host=localhost;port=7801;dbname=storm_test", "mysql", "mysql")
+$connection = ConnectionFactory::createFromString(
+    "mysql:host=localhost;port=7801;dbname=storm_test", "mysql", "mysql")
 $queries = new StormQueries($connection);
 
 Map::create(Order::class, 'order_id', [
@@ -63,20 +76,12 @@ Map::create(Order::class, 'order_id', [
         'product_id' => 'id',
         'product_name' => 'name',
         'quantity' => 'quantity'])
-)
-->hasOne('shipper',
-    Map::create(Shipper::class, 'shipper_id', [
-        'shipper_id' => 'id',
-        'shipper_name' => 'name'])
-)
+);
 
 $orders = $queries
-    ->select(
-        'order_id', 'order_date',
-        'product.product_id, product.product_name')
+    ->select('*')
     ->from('orders o')
     ->leftJoin('products p', 'o.product_id', 'p.id')
-    ->where('o.total' '>=', $queries->select('avg(total)')->from('orders'))
     ->orderByDesc('o.total')
     ->find($map);
      
@@ -88,6 +93,7 @@ foreach($orders as $order) {
 }                   
 ```
 
+<a name="block2"></a>
 ## Select query [↑](#index_block)
 
 Build select query with `from` method

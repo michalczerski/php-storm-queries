@@ -92,7 +92,30 @@ final class MapperTest extends TestCase
         $this->assertCount(91, $customers);
     }
 
-    public function testHierarchicalResult(): void
+    public function testMappingOrders(): void
+    {
+        $map = Map::create(Order::class, 'order_id', [
+            'order_id' => 'id',
+            'order_date' => 'date',
+        ])
+        ->hasMany('products',
+            Map::create(Product::class, 'product_id', [
+                'product_id' => 'id',
+                'product_name' => 'name',
+                'quantity' => 'quantity'])
+        );
+
+        $orders = self::$queries
+            ->select('*')
+            ->from('orders o')
+            ->leftJoin('order_details od', 'od.order_id', 'o.order_id')
+            ->leftJoin('products p', 'od.product_id', 'p.product_id')
+            ->find($map);
+
+        $this->assertCount(196, $orders);
+    }
+
+    public function testMappingCustomerWithOrders(): void
     {
         $map = Map::create(Customer::class, 'customer_id', [
             'customer_id' => 'id',
