@@ -32,6 +32,7 @@ Most interesting features
   * [Having](#having)
   * [Mapping data to hierarchical model](#mapping)
   * [Assembling query and critera-finder pattern](#assemblingqueries)
+* [3. ORM](#orm)
 * [3. Insert query](#insertquery)
 * [4. Update query](#updatequery)
 * [5. Delete query](#deletequery)
@@ -123,7 +124,6 @@ StormQueries is made to handle assembling queries step by step in various scenar
 `leftOuterJoin`
 `where`
 `orWhere`
-`groupBy`
 `having`
 `orHaving`
 `orderBy`
@@ -339,6 +339,12 @@ $criteria = ProductCriteria::create()
 
 $products = find_products($stormQueries, $criteria);
 ```
+
+## ORM
+opisac ze potrzeba bytu ktory pomapuje dane z zapytania do modelu hierarhicznego tam by stormqueries to wiedzial.
+Dodac dodawanie dla tabela. 
+- ZAprojektowac tak by w mapie byly tabela.columna 
+- dodac mozliwosc dodania prostych mapperow do 
 
 <a name="insertquery"></a>
 ## Insert query [↑](#index)

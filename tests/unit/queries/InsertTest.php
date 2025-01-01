@@ -15,7 +15,7 @@ final class InsertTest extends TestCase
     {
         $query = $this->insert
             ->into('Users')
-            ->setValues([
+            ->setRecord([
                 'name' => 'John Doe',
                 'email' => 'john@doe.com',
                 'age' => 32,
@@ -29,7 +29,7 @@ final class InsertTest extends TestCase
     {
         $query = $this->insert
             ->into('Users')
-            ->setValues([
+            ->setRecord([
                 'name' => 'John Doe',
                 'email' => 'john@doe.com',
                 'age' => 32,

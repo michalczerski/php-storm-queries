@@ -5,7 +5,7 @@ namespace Storm\Query\Sql;
 class SqlInsertBuilder
 {
     private string $tableName;
-    private array $values;
+    private array $values = [];
 
     public function into(string $tableName): SqlInsertBuilder
     {
@@ -13,21 +13,34 @@ class SqlInsertBuilder
         return $this;
     }
 
-    public function values(array $values): SqlInsertBuilder
+    public function record(array $values): SqlInsertBuilder
     {
-        $this->values = $values;
+        $this->values[] = $values;
         return $this;
     }
 
     public function toSql(): string
     {
-        $parameters = str_repeat('?,', count($this->values) - 1) . '?';
-        $columns = "(" . implode(', ', array_keys($this->values)) . ")";
-        return "INSERT INTO {$this->tableName} {$columns} VALUES ({$parameters})";
+        if (count($this->values)) {
+            $columns = "(" . implode(', ', array_keys($this->values[0])) . ")";
+
+            $parameters = [];
+            foreach ($this->values as $v) {
+                $parameters[] = "(" . str_repeat('?,', count($this->values[0]) - 1) . '?' . ")";
+            }
+            $valuesClause = implode(', ', $parameters);
+
+            return "INSERT INTO {$this->tableName} {$columns} VALUES {$valuesClause}";
+        }
+        return "";
     }
 
     public function getParameters(): array
     {
-        return array_values($this->values);
+        $records = [];
+        foreach($this->values as $record) {
+            $records = array_merge($records, array_values($record));
+        }
+        return $records;
     }
 }

@@ -21,10 +21,18 @@ class InsertQuery
         return $this;
     }
 
-    public function setValues(array $values): InsertQuery
+    public function setRecord(array $values): InsertQuery
     {
         $normalized = ParameterNormalizer::normalize($values);
-        $this->insertBuilder->values($normalized);
+        $this->insertBuilder->record($normalized);
+        return $this;
+    }
+
+    public function setRecords(array $records): InsertQuery
+    {
+        foreach($records as $record){
+            $this->setRecord($record);
+        }
         return $this;
     }
 

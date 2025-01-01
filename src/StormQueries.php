@@ -13,14 +13,22 @@ readonly class StormQueries
     {
     }
 
-    public function insert($table, $values = array()): InsertQuery
+    public function insert($table, $record = array()): InsertQuery
     {
         $query = new InsertQuery($this->connection);
         $query->into($table);
-        if (count($values)) {
-            $query->setValues($values);
+        if (count($record)) {
+            $query->setRecord($record);
         }
         return $query;
+    }
+
+    public function insertMany($table, $records = array()): InsertQuery
+    {
+        $insertQuery = new InsertQuery($this->connection);
+        $insertQuery->into($table);
+        $insertQuery->setRecords($records);
+        return $insertQuery;
     }
 
     public function select(...$fields): SelectQuery

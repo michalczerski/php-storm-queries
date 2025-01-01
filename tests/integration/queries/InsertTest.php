@@ -15,7 +15,7 @@ final class InsertTest extends TestCase
     {
         $query = self::$queries
             ->insert('insert_test')
-            ->setValues([
+            ->setRecord([
                 'name' => 'first'
             ]);
 
@@ -29,6 +29,17 @@ final class InsertTest extends TestCase
         $id = self::$queries->insert('insert_test', ['name' => 'second'])->execute();
 
         $this->assertEquals(2, $id);
+    }
+
+    public function testInsertMany(): void
+    {
+        self::$queries->insertMany('insert_test', [
+            ['name' => 'name1'],
+            ['name' => 'name2'],
+            ['name' => 'name3']
+        ])->execute();
+
+        $this->assertEquals(5, self::$queries->from('insert_test')->count());
     }
 
     public static function setUpBeforeClass(): void
